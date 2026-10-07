@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Minero</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1f2937;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .campo-tmh {
+      display: none;
+    }
+
+    .campo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .campo-header label {
+      margin-bottom: 0;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .toggle-row label {
+      margin-bottom: 0;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .radio-option input {
+      width: auto;
+      margin: 0;
+      padding: 0;
+    }
+
+    label {
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input {
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    }
+
+    input.invalid {
+      border-color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-calcular {
+      background: #16a34a;
+    }
+
+    .btn-calcular:hover {
+      background: #15803d;
+    }
+
+    .error-message {
+      color: #dc2626;
+      font-size: 12px;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .error-message.visible {
+      display: block;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 12px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 8px;
+      color: #065f46;
+      font-weight: 600;
+      display: none;
+    }
+
+    .resultado.visible {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Formulario Minero</h2>
+    <form id="formMineria" novalidate>
+      <div class="campo">
+        <div class="campo-header">
+          <label for="reserva">Reserva</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="tipo-reserva" value="TM" checked> TM</label>
+            <label class="radio-option"><input type="radio" name="tipo-reserva" value="TMH"> TMH</label>
+          </div>
+        </div>
+        <input type="text" id="reserva" name="reserva" placeholder="Ingrese la reserva">
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo">
+        <label for="ley-media">Ley media</label>
+        <input type="text" id="ley-media" name="ley-media" placeholder="Ingrese la ley media">
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo">
+        <label for="ley-corte">Ley de corte</label>
+        <input type="text" id="ley-corte" name="ley-corte" placeholder="Ingrese la ley de corte">
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo">
+        <label for="recuperacion">Recuperación metalúrgica</label>
+        <input type="text" id="recuperacion" name="recuperacion" placeholder="Ingrese la recuperación">
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo">
+        <label for="humedad">Humedad</label>
+        <input type="text" id="humedad" name="humedad" placeholder="Ingrese la humedad">
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo">
+        <label for="produccion-fino">Producción fino por año (TMF/año)</label>
+        <input type="text" id="produccion-fino" name="produccion-fino" placeholder="Ingrese la producción fino">
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo campo-tmh">
+        <label for="solubilidad">Solubilidad</label>
+        <input type="text" id="solubilidad" name="solubilidad" placeholder="Ingrese la solubilidad">
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo campo-tmh">
+        <div class="toggle-row">
+          <label for="dilucion">Dilución</label>
+          <input type="checkbox" id="activar-dilucion" name="activar-dilucion">
+        </div>
+        <input type="text" id="dilucion" name="dilucion" placeholder="Ingrese la dilución" disabled>
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <div class="campo">
+        <div class="toggle-row">
+          <label for="esteril">Estéril</label>
+          <input type="checkbox" id="activar-esteril" name="activar-esteril">
+        </div>
+        <input type="text" id="esteril" name="esteril" placeholder="Ingrese el valor de estéril" disabled>
+        <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+      </div>
+
+      <button type="submit">Calcular</button>
+      <div id="resultado" class="resultado">
+        <h2>Resultado</h2>
+        <div id="step1" class="steps">
+          <h3>Paso 1: Cálculo de la producción Fino (TMF)</h3>
+          <div id="step1-result"></div>
+        </div>
+        <div id="step2" class="steps">
+          <h3>Paso 2: Cálculo de la vida útil en años</h3>
+          <div id="step2-result"></div>
+        </div>
+        <div id="step3" class="steps">
+          <h3>Paso 3: Cálculo de toneladas por año (TPA)</h3>
+          <div id="step3-result"></div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
