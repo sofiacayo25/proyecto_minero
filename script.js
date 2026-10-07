@@ -7,7 +7,8 @@ const step3 = document.getElementById('step3-result');
 const camposTMH = document.querySelectorAll('.campo-tmh');
 const radiosTipoReserva = document.querySelectorAll('input[name="tipo-reserva"]');
 const checkboxEsteril = document.getElementById('activar-esteril');
-const inputEsteril = document.getElementById('esteril');
+const inputEsteril1 = document.getElementById('esteril1');
+const inputEsteril2 = document.getElementById('esteril2');
 const checkboxDilucion = document.getElementById('activar-dilucion');
 const inputDilucion = document.getElementById('dilucion');
 
@@ -17,13 +18,19 @@ function validarNumeroMayorOIgualCero(valor) {
 
 function toggleCampoEsteril() {
     const habilitado = checkboxEsteril.checked;
-    inputEsteril.disabled = !habilitado;
+    inputEsteril1.disabled = !habilitado;
+    inputEsteril2.disabled = !habilitado;
 
     if (!habilitado) {
-        inputEsteril.value = '';
-        inputEsteril.classList.remove('invalid');
-        const error = inputEsteril.parentElement.querySelector('.error-message');
-        if (error) error.classList.remove('visible');
+        inputEsteril1.value = '';
+        inputEsteril1.classList.remove('invalid');
+        const error1 = inputEsteril1.parentElement.querySelector('.error-message');
+        if (error1) error1.classList.remove('visible');
+
+        inputEsteril2.value = '';
+        inputEsteril2.classList.remove('invalid');
+        const error2 = inputEsteril2.parentElement.querySelector('.error-message');
+        if (error2) error2.classList.remove('visible');
     }
 }
 
@@ -107,8 +114,24 @@ function multiplicarTodosLosCampos() {
     const total = reserva * (leyMedia / 100) * (recuperacion / 100) * (1 - humedad / 100) * solubilidad;
 
     step1.textContent = `Resultado: ${total} TMF`;
-    step2.textContent = `Resultado: ${total / produccionFinoXyear} años`;
-    step3.textContent = checkoutEsteril.checked ? `Resultado: ${total / ((leyMedia / 100) * (recuperacion / 100) * (1 - humedad / 100))} TMF` : '';
+    let vidaUtil = Math.round(total / produccionFinoXyear);
+    step2.textContent = `Resultado: ${vidaUtil} años`;
+
+    if(radiosTipoReserva[1].checked) {
+        checkboxDilucion.checked ? step3.textContent = `Resultado: ${(reserva * (1 - humedad / 100)) / vidaUtil } TPA (soluble) con dilucion`
+        : step3.textContent = `Resultado: ${reserva / vidaUtil } TPA (TMH) sin dilucion`;
+    } else {
+        step3.textContent = `Resultado: ${reserva / vidaUtil } TPA`;
+    }
+    // if (checkboxEsteril.checked) {
+    //     step3.textContent = `Resultado: ${produccionFinoXyear / ((leyMedia / 100) * (recuperacion / 100) * (1 - humedad / 100))} TME/año`;
+    // } 
+    // if(radiosTipoReserva[1].checked && checkboxDilucion.checked) {
+    //     step3.textContent = `Resultado: es soluble con dilucion`;
+    // }
+    // if(radiosTipoReserva[1].checked && !checkboxDilucion.checked) {
+    //     step3.textContent = `Resultado: es TMH sin dilucion`;
+    // }
     resultado.classList.add('visible');
 }
 

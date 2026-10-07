@@ -45,6 +45,16 @@
       display: none;
     }
 
+    .esteril-inputs {
+      display: flex;
+      gap: 10px;
+    }
+
+    .esteril-inputs input {
+      flex: 1;
+      min-width: 0;
+    }
+
     .campo-header {
       display: flex;
       align-items: center;
@@ -236,7 +246,11 @@
           <label for="esteril">Estéril</label>
           <input type="checkbox" id="activar-esteril" name="activar-esteril">
         </div>
-        <input type="text" id="esteril" name="esteril" placeholder="Ingrese el valor de estéril" disabled>
+        <div class="esteril-inputs">
+          <input type="text" id="esteril1" name="esteril1" placeholder="Ingrese el valor de estéril" disabled>
+          <p style="margin: 0; align-self: center;">:</p>
+          <input type="text" id="esteril2" name="esteril2" placeholder="Ingrese el valor de estéril" disabled>
+        </div>
         <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
       </div>
 
