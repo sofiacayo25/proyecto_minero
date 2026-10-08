@@ -5,179 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proyecto Minero</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-
-    .form-container {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      width: 100%;
-      max-width: 500px;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #1f2937;
-    }
-
-    form {
-      display: grid;
-      gap: 16px;
-    }
-
-    .campo {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .campo-tmh {
-      display: none;
-    }
-
-    .esteril-inputs {
-      display: flex;
-      gap: 10px;
-    }
-
-    .esteril-inputs input {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .campo-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    .campo-header label {
-      margin-bottom: 0;
-    }
-
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .toggle-row label {
-      margin-bottom: 0;
-    }
-
-    .radio-group {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      font-size: 14px;
-    }
-
-    .radio-option {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #374151;
-      font-weight: 500;
-    }
-
-    .radio-option input {
-      width: auto;
-      margin: 0;
-      padding: 0;
-    }
-
-    label {
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #374151;
-    }
-
-    input {
-      padding: 10px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-    }
-
-    input.invalid {
-      border-color: #dc2626;
-      background: #fef2f2;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 10px;
-    }
-
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      flex: 1;
-    }
-
-    button:hover {
-      background: #1d4ed8;
-    }
-
-    .btn-calcular {
-      background: #16a34a;
-    }
-
-    .btn-calcular:hover {
-      background: #15803d;
-    }
-
-    .error-message {
-      color: #dc2626;
-      font-size: 12px;
-      margin-top: 4px;
-      display: none;
-    }
-
-    .error-message.visible {
-      display: block;
-    }
-
-    .resultado {
-      margin-top: 20px;
-      padding: 12px;
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      border-radius: 8px;
-      color: #065f46;
-      font-weight: 600;
-      display: none;
-    }
-
-    .resultado.visible {
-      display: block;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -248,11 +76,85 @@
         </div>
         <div class="esteril-inputs">
           <input type="text" id="esteril1" name="esteril1" placeholder="Ingrese el valor de estéril" disabled>
-          <p style="margin: 0; align-self: center;">:</p>
+          <p class="esteril-separator">:</p>
           <input type="text" id="esteril2" name="esteril2" placeholder="Ingrese el valor de estéril" disabled>
         </div>
         <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
       </div>
+
+      <section class="seccion-inversiones" aria-labelledby="titulo-inversiones">
+        <h3 id="titulo-inversiones">Inversiones</h3>
+
+        <div class="campo">
+          <label for="adquisicion-equipos">Adquisición en equipos</label>
+          <input type="text" id="adquisicion-equipos" name="adquisicion-equipos" placeholder="Ingrese la adquisición en equipos">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="construccion">Construcción</label>
+          <input type="text" id="construccion" name="construccion" placeholder="Ingrese el costo de construcción">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="capital-trabajo">Capital de trabajo</label>
+          <input type="text" id="capital-trabajo" name="capital-trabajo" placeholder="Ingrese el capital de trabajo">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="capital-inicial-propio">Capital inicial propio</label>
+          <input type="text" id="capital-inicial-propio" name="capital-inicial-propio" placeholder="Ingrese el capital inicial propio">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="capital-recuperado">Capital recuperado</label>
+          <input type="text" id="capital-recuperado" name="capital-recuperado" placeholder="Ingrese el capital recuperado">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="permiso-puesta-tierra">Permiso puesta tierra</label>
+          <input type="text" id="permiso-puesta-tierra" name="permiso-puesta-tierra" placeholder="Ingrese el costo del permiso puesta tierra">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="pago-impuestos-formacion-empresa">Pago impuestos formación empresa</label>
+          <input type="text" id="pago-impuestos-formacion-empresa" name="pago-impuestos-formacion-empresa" placeholder="Ingrese el pago de impuestos de formación de empresa">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+      </section>
+
+      <section class="seccion-costos" aria-labelledby="titulo-costos">
+        <h3 id="titulo-costos">Costos</h3>
+
+        <div class="campo">
+          <label for="costo-mina">Costo mina</label>
+          <input type="text" id="costo-mina" name="costo-mina" placeholder="Ingrese el costo mina">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="costo-planta">Costo planta</label>
+          <input type="text" id="costo-planta" name="costo-planta" placeholder="Ingrese el costo planta">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="costo-venta">Costo venta</label>
+          <input type="text" id="costo-venta" name="costo-venta" placeholder="Ingrese el costo venta">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+
+        <div class="campo">
+          <label for="tasa-interes">Tasa interés</label>
+          <input type="text" id="tasa-interes" name="tasa-interes" placeholder="Ingrese la tasa de interés">
+          <span class="error-message">Debe ingresar un número mayor o igual a 0.</span>
+        </div>
+      </section>
 
       <button type="submit">Calcular</button>
       <div id="resultado" class="resultado">
@@ -269,6 +171,13 @@
           <h3>Paso 3: Cálculo de toneladas por año (TPA)</h3>
           <div id="step3-result"></div>
         </div>
+        <div id="step4" class="steps">
+          <h3>Paso 4: Cálculo la inversión</h3>
+          <div id="step4-result"></div>
+      </div>
+      <div id="step5" class="steps">
+        <h3>Paso 5: Cálculo de los costos</h3>
+        <div id="step5-result"></div>
 
       </div>
     </form>

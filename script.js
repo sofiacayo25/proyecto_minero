@@ -3,8 +3,11 @@ const resultado = document.getElementById('resultado');
 const step1 = document.getElementById('step1-result');
 const step2 = document.getElementById('step2-result');
 const step3 = document.getElementById('step3-result');
+const step4 = document.getElementById('step4-result');
+const step5 = document.getElementById('step5-result');
 
 const camposTMH = document.querySelectorAll('.campo-tmh');
+const camposInversion = document.querySelectorAll('.seccion-inversiones input[type="text"]');
 const radiosTipoReserva = document.querySelectorAll('input[name="tipo-reserva"]');
 const checkboxEsteril = document.getElementById('activar-esteril');
 const inputEsteril1 = document.getElementById('esteril1');
@@ -89,6 +92,24 @@ function obtenerValoresNumericos() {
     return { valores, formularioValido };
 }
 
+function obtenerTotalInversion() {
+    return Array.from(camposInversion).reduce((total, input) => total + Number(input.value), 0);
+}
+
+function obtenerTotalCostos(TPA, inversionTotal, vidaUtil) {
+    const costoMina = Number(document.getElementById('costo-mina').value);
+    const costoPlanta = Number(document.getElementById('costo-planta').value);
+    // const costoVenta = Number(document.getElementById('costo-venta').value);
+    const tasaInteres = Number(document.getElementById('tasa-interes').value);
+    const adquisicionEquipos = Number(document.getElementById('adquisicion-equipos').value);
+
+    const costoMinaTotal = costoMina * TPA;
+    const costoPlantaTotal = costoPlanta * TPA;
+    const interes = inversionTotal * tasaInteres;
+    const depreciacion = adquisicionEquipos / vidaUtil; // Suponiendo una vida útil de 10 años para los equipos
+    return costoMinaTotal + costoPlantaTotal + interes + depreciacion;
+}
+
 function multiplicarTodosLosCampos() {
     const { valores, formularioValido } = obtenerValoresNumericos();
 
@@ -114,15 +135,20 @@ function multiplicarTodosLosCampos() {
     const total = reserva * (leyMedia / 100) * (recuperacion / 100) * (1 - humedad / 100) * solubilidad;
 
     step1.textContent = `Resultado: ${total} TMF`;
-    let vidaUtil = Math.round(total / produccionFinoXyear);
+    const vidaUtil = Math.round(total / produccionFinoXyear);
     step2.textContent = `Resultado: ${vidaUtil} años`;
+    let TPA = 0;
 
     if(radiosTipoReserva[1].checked) {
-        checkboxDilucion.checked ? step3.textContent = `Resultado: ${(reserva * (1 - humedad / 100)) / vidaUtil } TPA (soluble) con dilucion`
-        : step3.textContent = `Resultado: ${reserva / vidaUtil } TPA (TMH) sin dilucion`;
+        checkboxDilucion.checked ? step3.textContent = `Resultado: ${(TPA = reserva * (1 - humedad / 100)) / vidaUtil } TPA (soluble) con dilucion`
+        : step3.textContent = `Resultado: ${TPA = reserva / vidaUtil } TPA (TMH) sin dilucion`;
     } else {
-        step3.textContent = `Resultado: ${reserva / vidaUtil } TPA`;
+        step3.textContent = `Resultado: ${TPA = reserva / vidaUtil } TPA`;
     }
+
+    const inversionTotal = obtenerTotalInversion();
+    step4.textContent = `Resultado: ${inversionTotal}`;
+    step5.textContent = `Resultado: ${obtenerTotalCostos(TPA, inversionTotal, vidaUtil)}`;
     // if (checkboxEsteril.checked) {
     //     step3.textContent = `Resultado: ${produccionFinoXyear / ((leyMedia / 100) * (recuperacion / 100) * (1 - humedad / 100))} TME/año`;
     // } 
